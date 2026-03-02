@@ -1,5 +1,7 @@
 @extends('admin.template')
 
+@section('title', 'Submenu Management')
+
 @section('content')
 
 <div class="container mx-auto px-4 ">

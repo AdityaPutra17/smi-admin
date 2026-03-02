@@ -1,5 +1,7 @@
 @extends('admin.template')
 
+@section('title', 'HR Data')
+
 @section('content')
 
 <div class="p-4">
