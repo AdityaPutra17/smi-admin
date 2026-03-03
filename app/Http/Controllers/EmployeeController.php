@@ -33,18 +33,32 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'emp_id' => 'required',
-            'nik_emp' => 'required',
-            'name' => 'required',
-            'company' => 'required',
-            'email' => 'nullable|email'
+        $validated = $request->validate([
+            'emp_id'       => 'required|string|max:255',
+            'nik_emp'      => 'required|string|max:255',
+            'name'         => 'required|string|max:255',
+            'company'      => 'required|string|max:255',
+            'startcont'    => 'nullable|date',
+            'join_date'    => 'nullable|date',
+            'division'     => 'required|string|max:255',
+            'location'     => 'required|string|max:255',
+            'position'     => 'required|string|max:255',
+            'no_hp'        => 'required|string|max:20',
+            'status'       => 'required|string|max:50',
+            'tgl_resign'   => 'nullable|date',
+            'pic_hr'       => 'nullable|string|max:255',
+            'email'        => 'required|email|max:255',
+            'user_pic'     => 'nullable|string|max:255',
+        ], [
+            'required' => 'Kolom :attribute wajib diisi.',
+            'email' => 'Format email tidak valid.',
         ]);
 
-        Employee::create($request->all());
+        // Membuat data baru ke database
+        Employee::create($validated);
 
-        return redirect()->route('employees.index')
-            ->with('success', 'Employee created successfully');
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('hr.index')->with('success', 'Data Karyawan berhasil ditambahkan!');
     }
 
     /**

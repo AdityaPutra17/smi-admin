@@ -17,17 +17,17 @@ return new class extends Migration
             $table->string('nik_emp');
             $table->string('name');
             $table->string('company');
-            $table->string('startcont')->nullabel();
-            $table->string('join_date')->nullabel();
+            $table->string('startcont')->nullable();
+            $table->string('join_date')->nullable();
             $table->string('division');
             $table->string('location');
             $table->string('position');
             $table->string('no_hp');
             $table->string('status');
-            $table->string('tgl_resign')->nullabel();
-            $table->string('pic_hr');
+            $table->string('tgl_resign')->nullable();
+            $table->string('pic_hr')->nullable();
             $table->string('email');
-            $table->string('user_pic');
+            $table->string('user_pic')->nullable();
             $table->timestamps();
         });
     }
