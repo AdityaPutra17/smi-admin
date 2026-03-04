@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/test', function () {
         return view('test');
     })->name('test');
-    Route::get('/dashboard', function () {
+    Route::get('/admin', function () {
         return view('admin.dashboard'); // buat file ini nanti
     })->name('dashboard');
 

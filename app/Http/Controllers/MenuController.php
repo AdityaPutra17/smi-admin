@@ -34,13 +34,11 @@ class MenuController extends Controller
         //
         $request->validate([
             'name' => 'required',
-            'icon' => 'required',
             'order' => 'required',
         ]);
 
         $menu = new Menu();
         $menu->name = $request->name;
-        $menu->icon = $request->icon;
         $menu->order = $request->order;
         $menu->save();
 
@@ -73,13 +71,11 @@ class MenuController extends Controller
         //
         $request->validate([
         'name' => 'required',
-        'icon' => 'required',
         'order' => 'required|numeric',
         ]);
 
         $menu->update([
             'name' => $request->name,
-            'icon' => $request->icon,
             'order' => $request->order,
         ]);
 

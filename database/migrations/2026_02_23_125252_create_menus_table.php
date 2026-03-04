@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');              // Nama Menu
-            $table->string('icon')->nullable();  // icon (heroicon / svg class)
             $table->integer('order')->default(0);
             $table->timestamps();
         });
