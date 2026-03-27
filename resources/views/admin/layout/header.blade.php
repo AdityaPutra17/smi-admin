@@ -1,4 +1,4 @@
-<header class="h-16 bg-white shadow-md flex px-6 fixed w-full md:w-[calc(100%-16rem)] top-0 z-0 md:left-64">
+<header class="h-16 bg-white shadow-md flex px-6 fixed w-full md:w-[calc(100%-16rem)] top-0 z-1 md:left-64">
         <div class="w-full mx-auto  px-4 sm:px-6 lg:px-8">
             <div class="flex justify-end h-16">
                 <div class="flex items-center space-x-4">

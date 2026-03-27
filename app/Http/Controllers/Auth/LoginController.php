@@ -21,29 +21,17 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'employee_id' => 'required',
             'password' => 'required'
         ]);
 
-        // emp id
-        // $credentials = $request->validate([
-        //     'emp_id' => 'required',
-        //     'password' => 'required'
-        // ]);
-
-        // if (Auth::attempt(['emp_id' => $request->emp_id, 'password' => $request->password])) {
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('/dashboard');
-        // }
-
-
-        if (Auth::attempt($credentials, $request->remember)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/admin');
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password salah'
+            'employee_id' => 'Employee ID atau password salah'
         ]);
     }
 

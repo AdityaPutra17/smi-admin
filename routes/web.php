@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LoginUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,7 +28,8 @@ Route::middleware('auth')->group(function (){
         return view('admin.dashboard'); // buat file ini nanti
     })->name('dashboard');
 
-    Route::resource('hr', EmployeeController::class);
+    Route::resource('admin', EmployeeController::class);
     Route::resource('menus', MenuController::class);
     Route::resource('submenus', SubmenuController::class);
+    Route::resource('user', LoginUserController::class);
 });

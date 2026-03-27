@@ -58,7 +58,7 @@ class EmployeeController extends Controller
         Employee::create($validated);
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('hr.index')->with('success', 'Data Karyawan berhasil ditambahkan!');
+        return redirect()->route('admin.index')->with('success', 'Data Karyawan berhasil ditambahkan!');
     }
 
     /**

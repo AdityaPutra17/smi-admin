@@ -23,7 +23,7 @@
 
         <!-- Body Form (Tersembunyi) -->
         <div id="form-container" class="hidden p-6">
-            <form action="{{ route('hr.store') }}" method="POST">
+            <form action="{{ route('admin.store') }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     

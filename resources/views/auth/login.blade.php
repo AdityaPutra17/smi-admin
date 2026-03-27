@@ -26,12 +26,12 @@
 
         <!-- Form -->
         <form method="POST" action="{{ route('login') }}" class="space-y-5">
-            @csrf
+            @csrf   
             
             <!-- Email -->
             <div>
                 <label class="block text-xs font-medium text-slate-600 uppercase tracking-wide mb-1.5">Email</label>
-                <input type="email" placeholder="name@example.com" name="email"
+                <input type="text" placeholder="Enter your employee id" name="employee_id"
                     class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all">
             </div>
 
