@@ -15,6 +15,8 @@
             Dashboard
         </a>
 
+        @auth
+        @if (auth()->user()->role === 'superadmin')
         <div x-data="{ open: false }">
             <!-- Group Title -->
             <button @click="open = !open"
@@ -40,49 +42,55 @@
                 class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
                    <i class="fa-solid fa-users"></i> User Management
                 </a>
+                <a href="{{ route('access.index') }}"
+                class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
+                   <i class="fa-solid fa-key"></i> Access Management
+                </a>
                 <a href="{{ route('menus.index') }}"
                 class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
                    <i class="fa-brands fa-elementor"></i> Menu Management
                 </a>
-                {{-- <a href="{{ route('submenus.index') }}" --}}
                 <a href="{{ route('submenus.index') }}"
                 class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
                    <i class="fa-brands fa-elementor"></i> Sub Menu Management
                 </a>
             </div>
 
-            @foreach ($menus as $menu)
-                <div x-data="{ open: false }">
-                    <!-- Group Title -->
-                    <button @click="open = !open"
-                        class="w-full flex items-center justify-between px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-
-                        <span class="flex items-center gap-2">
-                            {{ $menu->name }}
-                        </span>
-
-                        <!-- Arrow -->
-                        <svg :class="{'rotate-90': open}" class="w-4 h-4 transition-transform"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-
-                    <!-- Sub Menu -->
-                    <div x-show="open" x-transition class="space-y-1 mt-2 pl-8">
-
-                        @foreach ($menu->submenus as $submenu)
-                            <a href="{{ route($submenu->route) }}"
-                                class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
-                                <i class="{{ $submenu->icon }}"></i>
-                                {{ $submenu->name }}
-                            </a>
-                        @endforeach
-
-                    </div>
-                </div>
-            @endforeach
         </div>
+        @endif
+        @endauth
+        
+        @foreach ($menus as $menu)
+            <div x-data="{ open: false }">
+                <!-- Group Title -->
+                <button @click="open = !open"
+                    class="w-full flex items-center justify-between px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+
+                    <span class="flex items-center gap-2">
+                        {{ $menu->name }}
+                    </span>
+
+                    <!-- Arrow -->
+                    <svg :class="{'rotate-90': open}" class="w-4 h-4 transition-transform"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+                <!-- Sub Menu -->
+                <div x-show="open" x-transition class="space-y-1 mt-2 pl-8">
+
+                    @foreach ($menu->submenus as $submenu)
+                        <a href="{{ route($submenu->route) }}"
+                            class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
+                            <i class="{{ $submenu->icon }}"></i>
+                            {{ $submenu->name }}
+                        </a>
+                    @endforeach
+
+                </div>
+            </div>
+        @endforeach
     </nav>>
 </aside>

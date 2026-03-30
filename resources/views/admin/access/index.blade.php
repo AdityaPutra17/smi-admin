@@ -36,7 +36,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
-                Add User
+                Access Management
             </h3>
             <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 transform transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -45,15 +45,10 @@
 
         <!-- Body Form (Tersembunyi) -->
         <div id="form-container" class="hidden p-6">
-            <form action="{{ route('user.store') }}" method="POST">
+            <form action="{{ route('access.store') }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     
-                    <!-- Field Inputs -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase mb-1">Emp ID</label>
-                        <input type="text" name="emp_id" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50" placeholder="e.g: 000001">
-                    </div>
                     <div>
                         <label class="block text-xs font-bold uppercase mb-1">Role</label>
                         <select name="role" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
@@ -63,8 +58,13 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase mb-1">Password</label>
-                        <input type="password" name="password" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50" placeholder="e.g: ********">
+                        <label class="block text-xs font-bold uppercase mb-1">Role</label>
+                        <select name="role" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
+                            <option value="">Select Role</option>
+                            @foreach ($menus as $menu)
+                                <option value="{{ $menu->id }}">{{ $menu->name }}</option>  
+                            @endforeach
+                        </select>
                     </div>
                     
                     <!-- Tambahkan field lainnya sesuai kebutuhan -->
@@ -80,46 +80,52 @@
         </div>
     </div>
 
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-white">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse ($users as $user)
+    <div class="overflow-x-auto">
+            <table class="min-w-full text-left text-sm">
+                <thead class="bg-gray-100 text-gray-600 uppercase font-bold text-xs">
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $user->employee_id }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $user->employee->name ?? '-' }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $user->role }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <a href="{{ route('user.edit', $user->id) }}" class="text-blue-500 hover:text-blue-700 mr-2">
+                        <th class="px-6 py-3">Role</th>
+                        <th class="px-6 py-3">Menu Name</th>
+                        <th class="px-6 py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @forelse($accesses as $access)
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                        
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-gray-900">{{ $access->menu->name }}</div>
+                        </td>
+                        
+                        <td class="px-6 py-4"> {{$access->role}} </td>
+                        <td class="px-6 py-4">
+                            <a href="{{ route('access.edit', $access->id) }}" class="text-blue-500 hover:text-blue-700 mr-2">
                                 <i class="fa-solid fa-edit"></i> Edit
                             </a>
-                            <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="inline-block">
+                            <form action="{{ route('access.destroy', $access->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this access?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this user?')">
+                                <button type="submit" class="text-red-500 hover:text-red-700">
                                     <i class="fa-solid fa-trash"></i> Delete
                                 </button>
                             </form>
                         </td>
                     </tr>
-                @empty
+                    @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-center text-gray-500">
-                            No users found
+                        <td colspan="6" class="px-6 py-10 text-center text-gray-500">
+                            <div class="flex flex-col items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                                <p>Belum ada data karyawan.</p>
+                            </div>
                         </td>
                     </tr>
-                @endforelse
-
-            </tbody>
-        </table>
-    </div>    
+                    @endforelse
+                </tbody>
+            </table>
+        </div>   
 </div>
 
 <script>

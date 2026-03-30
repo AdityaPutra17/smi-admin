@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LoginUser;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
 
 class LoginUserController extends Controller
@@ -14,8 +15,8 @@ class LoginUserController extends Controller
     public function index()
     {
         //
-        $user = LoginUser::orderBy('order')->get();
-        return view('admin.user.index', compact('user'));
+        $users = LoginUser::all();
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -34,12 +35,24 @@ class LoginUserController extends Controller
     {
         //
         $request->validate([
-            'employee_id' => 'required',
+            'emp_id' => 'required',
+            'role' => 'required',
             'password' => 'required',
         ]);
 
         $user = new LoginUser();
-        $user->employee_id = $request->employee_id;
+
+        $empId = trim($request->emp_id);
+        $employee = Employee::where('nik_emp', $empId)->first();
+        // dd($request->emp_id, $employee, $nik);
+        if (!$employee) {
+            return back()->withErrors([
+                'emp_id' => 'Employee ID tidak ditemukan'
+            ])->withInput();
+        }
+        $user->employee_id = $employee->nik_emp; // Simpan emp_id ke login_users
+
+        $user->role = $request->role;
         $user->password = Hash::make($request->password);
         $user->save(); 
 
@@ -78,5 +91,10 @@ class LoginUserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = LoginUser::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index')
+            ->with('success', 'User berhasil dihapus');
+            
     }
 }
