@@ -81,7 +81,7 @@
                 <!-- Sub Menu -->
                 <div x-show="open" x-transition class="space-y-1 mt-2 pl-8">
 
-                    @foreach ($menu->submenus as $submenu)
+                    @foreach ($menu->subMenus as $submenu)
                         <a href="{{ route($submenu->route) }}"
                             class="flex items-center px-4 py-2 text-blue-500 hover:bg-gray-800 hover:text-white rounded-lg gap-4">
                             <i class="{{ $submenu->icon }}"></i>

@@ -53,14 +53,16 @@
                         <label class="block text-xs font-bold uppercase mb-1">Role</label>
                         <select name="role" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
                             <option value="">Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                            <option value="superadmin">Superadmin</option>
+                            <option value="hr">HR</option>
+                            <option value="ga">GA</option>
+                            <option value="staff_branch">Staff Branch</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase mb-1">Role</label>
-                        <select name="role" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                            <option value="">Select Role</option>
+                        <label class="block text-xs font-bold uppercase mb-1">Menu</label>
+                        <select name="menu_id" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
+                            <option value="">Select Menu</option>
                             @foreach ($menus as $menu)
                                 <option value="{{ $menu->id }}">{{ $menu->name }}</option>  
                             @endforeach
@@ -93,11 +95,11 @@
                     @forelse($accesses as $access)
                     <tr class="hover:bg-gray-50 transition-colors duration-200">
                         
+                        <td class="px-6 py-4"> {{$access->role}} </td>
                         <td class="px-6 py-4">
                             <div class="font-medium text-gray-900">{{ $access->menu->name }}</div>
                         </td>
                         
-                        <td class="px-6 py-4"> {{$access->role}} </td>
                         <td class="px-6 py-4">
                             <a href="{{ route('access.edit', $access->id) }}" class="text-blue-500 hover:text-blue-700 mr-2">
                                 <i class="fa-solid fa-edit"></i> Edit
@@ -118,7 +120,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                 </svg>
-                                <p>Belum ada data karyawan.</p>
+                                <p>Data Empty.</p>
                             </div>
                         </td>
                     </tr>

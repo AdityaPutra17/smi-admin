@@ -14,7 +14,7 @@
                         <div >
                             <button @click="open = !open" type="button" class="flex text-sm bg-white justify-center  items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <img class="h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User+Admin&background=6366f1&color=fff" alt="">
-                                <span class="px-2">{{ Auth::user()->name }}</span>
+                                {{-- <span class="px-2">{{ Auth::user()->name }}</span> --}}
                             </button>
                         </div>
 

@@ -58,8 +58,10 @@
                         <label class="block text-xs font-bold uppercase mb-1">Role</label>
                         <select name="role" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
                             <option value="">Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                            <option value="admin">Superadmin</option>
+                            <option value="user">HR</option>
+                            <option value="user">GA</option>
+                            <option value="user">Staff Branch</option>
                         </select>
                     </div>
                     <div>

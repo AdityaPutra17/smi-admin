@@ -42,6 +42,9 @@ class AccessController extends Controller
         $access->role = $request->role;
         $access->menu_id = $request->menu_id;
         $access->save(); 
+
+        return redirect()->route('access.index')
+            ->with('success', 'Access Berhasil ditambahkan');
     }
 
     /**
@@ -74,5 +77,10 @@ class AccessController extends Controller
     public function destroy(Access $access)
     {
         //
+        $access = Access::findOrFail($access->id);
+        $access->delete();
+
+        return redirect()->route('access.index')
+            ->with('success', 'Access Berhasil dihapus');
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('accesses', function (Blueprint $table) {
             $table->id();
             $table->string('role');
-            $table->string('menu_id'); // Simpan menu yang diakses dalam format JSON
+            $table->foreignId('menu_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

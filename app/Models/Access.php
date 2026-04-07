@@ -9,8 +9,13 @@ class Access extends Model
     //
     protected $guarded = [];
 
-    public function menus()
+    // public function menus()
+    // {
+    //     return $this->belongsToMany(Menu::class, 'access_menu', 'access_id', 'menu_id');
+    // } 
+    
+    public function menu()
     {
-        return $this->belongsToMany(Menu::class, 'access_menu', 'access_id', 'menu_id');
-    }   
+        return $this->belongsTo(Menu::class);
+    }
 }

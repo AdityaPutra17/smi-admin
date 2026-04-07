@@ -15,4 +15,9 @@ class Menu extends Model
     {
         return $this->hasMany(SubMenu::class)->orderBy('order');
     }
+
+    public function accesses()
+    {
+        return $this->hasMany(Access::class);
+    }
 }
