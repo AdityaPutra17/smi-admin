@@ -1,3 +1,14 @@
+@php
+    $name = Auth::user()->employee->name ?? 'User';
+    $words = explode(' ', $name);
+    $initials = strtoupper(
+        substr($words[0], 0, 1) . 
+        (isset($words[1]) ? substr($words[1], 0, 1) : '')
+    );
+@endphp
+
+
+
 <header class="h-16 bg-white shadow-md flex px-6 fixed w-full md:w-[calc(100%-16rem)] top-0 z-1 md:left-64">
         <div class="w-full mx-auto  px-4 sm:px-6 lg:px-8">
             <div class="flex justify-end h-16">
@@ -13,8 +24,9 @@
                     <div class="ml-3 relative" x-data="{ open: false }">
                         <div >
                             <button @click="open = !open" type="button" class="flex text-sm bg-white justify-center  items-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                <img class="h-8 w-8 rounded-full object-cover" src="https://ui-avatars.com/api/?name=User+Admin&background=6366f1&color=fff" alt="">
-                                {{-- <span class="px-2">{{ Auth::user()->name }}</span> --}}
+                                <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white text-sm font-semibold">
+                                    {{ $initials }}
+                                </div>
                             </button>
                         </div>
 
