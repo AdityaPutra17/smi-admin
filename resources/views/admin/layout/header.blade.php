@@ -28,6 +28,10 @@
                              x-transition:leave-end="transform opacity-0 scale-95"
                              class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-gray-200 ring-opacity-5 focus:outline-none z-50" 
                              role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                        
+                            <p class="block px-4 py-2 text-sm text-gray-700">{{ Auth::user()->employee_id }} - {{ Auth::user()->employee->name ?? 'User' }}</p>
+
+                            <hr class="border-gray-200">
                             
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
                                 <i class="fa-solid fa-user mr-2 text-gray-400"></i> Profile Saya
