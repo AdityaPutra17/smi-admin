@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LoginUser;
 use App\Models\Employee;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class LoginUserController extends Controller
@@ -16,7 +17,8 @@ class LoginUserController extends Controller
     {
         //
         $users = LoginUser::all();
-        return view('admin.user.index', compact('users'));
+        $roles = Role::all();
+        return view('admin.user.index', compact('users', 'roles'));
     }
 
     /**

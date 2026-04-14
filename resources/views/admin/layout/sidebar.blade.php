@@ -59,7 +59,7 @@
         </div>
         @endif
         @endauth
-        
+
         @foreach ($menus as $menu)
             <div x-data="{ open: false }">
                 <!-- Group Title -->

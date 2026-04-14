@@ -57,11 +57,10 @@
                     <div>
                         <label class="block text-xs font-bold uppercase mb-1">Role</label>
                         <select name="role" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                            <option value="">Select Role</option>
-                            <option value="superadmin">Superadmin</option>
-                            <option value="hr">HR</option>
-                            <option value="ga">GA</option>
-                            <option value="staff_branch">Staff Branch</option>
+                            <option value="" selected disabled>Select Role</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option> 
+                            @endforeach
                         </select>
                     </div>
                     <div>

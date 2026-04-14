@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Access;
 use App\Models\Menu;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class AccessController extends Controller
@@ -15,8 +16,9 @@ class AccessController extends Controller
     {
         //
         $accesses = Access::all();
+        $roles = Role::all();
         $menus = Menu::orderBy('order')->get();
-        return view('admin.access.index', compact('accesses', 'menus'));
+        return view('admin.access.index', compact('accesses', 'roles', 'menus'));
     }
 
     /**

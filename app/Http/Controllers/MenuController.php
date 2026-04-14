@@ -13,18 +13,9 @@ class MenuController extends Controller
     public function index()
     {
         //
-        $user = auth()->user();
+        $role = auth()->user()->role;
 
-        if ($user->role === 'superadmin') {
-            $menus = Menu::with('subMenus')->orderBy('order')->get();
-        } else {
-            $menus = Menu::whereHas('accesses', function ($q) use ($user) {
-                    $q->where('role', $user->role);
-                })
-                ->with('subMenus')
-                ->orderBy('order')
-                ->get();
-        }
+        $menus = Menu::with('subMenus')->orderBy('order')->get();
 
         return view('admin.menus.index', compact('menus'));
     }

@@ -1,13 +1,11 @@
 @php
-    $name = Auth::user()->employee->name ?? 'User';
+    $name = Auth::user()->employee->name ?? 'Super Admin';
     $words = explode(' ', $name);
     $initials = strtoupper(
         substr($words[0], 0, 1) . 
         (isset($words[1]) ? substr($words[1], 0, 1) : '')
     );
 @endphp
-
-
 
 <header class="h-16 bg-white shadow-md flex px-6 fixed w-full md:w-[calc(100%-16rem)] top-0 z-1 md:left-64">
         <div class="w-full mx-auto  px-4 sm:px-6 lg:px-8">
