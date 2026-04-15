@@ -6,87 +6,24 @@
 
 <div class="p-4">
 
-    <!-- 1. Card Form Tambah Data (Collapsible) -->
     <div class="bg-white shadow rounded-lg mb-6 border border-gray-200">
-        <!-- Header Card -->
         <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center cursor-pointer bg-gray-50 hover:bg-gray-100 transition" onclick="toggleForm()">
-            <h3 class="text-lg font-semibold text-gray-700 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                </svg>
-                Tambah Karyawan Baru
-            </h3>
-            <svg id="arrow-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 transform transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
+            <h3>Upload</h3>
         </div>
 
-        <!-- Body Form (Tersembunyi) -->
         <div id="form-container" class="hidden p-6">
-            <form action="{{ route('admin.store') }}" method="POST">
+            <form action="{{ route('import.employees') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    
-                    <!-- Field Inputs -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Emp ID</label>
-                        <input type="text" name="emp_id" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50" placeholder="e.g: AC-2600000101">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">NIK Employee</label>
-                        <input type="text" name="nik_emp" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Lengkap</label>
-                        <input type="text" name="name" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Company</label>
-                        <input type="text" name="company" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Join Date</label>
-                        <input type="date" name="join_date" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Division</label>
-                        <input type="text" name="division" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Location</label>
-                        <input type="text" name="location" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Position</label>
-                        <input type="text" name="position" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">No. HP</label>
-                        <input type="text" name="no_hp" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status</label>
-                        <select name="status" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                            <option value="Resign">Resign</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Email</label>
-                        <input type="email" name="email" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50">
-                    </div>
-                    <!-- Tambahkan field lainnya sesuai kebutuhan -->
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Pilih File Excel</label>
+                    <input type="file" name="file" accept=".xlsx, .xls" class="w-full rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border bg-gray-50" required>
                 </div>
-
-                <div class="mt-6 flex justify-end border-t pt-4">
-                    <button type="button" onclick="toggleForm()" class="mr-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-800">Batal</button>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-6 rounded shadow transition">
-                        Simpan Data
-                    </button>
-                </div>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-6 rounded shadow transition">
+                    Upload File
+                </button>
             </form>
         </div>
+
     </div>
 
     <!-- 2. Tabel Data Karyawan (Tampilan Baru) -->
@@ -120,7 +57,10 @@
                         
                         <!-- Nama & Email -->
                         <td class="px-6 py-4">
-                            <div class="font-medium text-gray-900">{{ $emp->name }}</div>
+                            {{-- <div class="font-medium text-gray-900">{{ $emp->name }}</div> --}}
+                            <a href="{{ route('admin.edit', $emp->id) }}" class="text-blue-600 hover:text-blue-900 hover:bg-blue-50" title="Edit">
+                                {{ $emp->name }}
+                            </a>
                             <div class="text-xs text-gray-500">{{ $emp->email }}</div>
                         </td>
                         
@@ -164,10 +104,6 @@
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     Active
                                 </span>
-                            @elseif($emp->status == 'Resign')
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                    Resign
-                                </span>
                             @else
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                     Inactive
@@ -179,7 +115,7 @@
                         <td class="px-6 py-4 text-center">
                             <div class="flex justify-center space-x-2">
                                 <!-- Tombol Edit -->
-                                <a href="#" class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50" title="Edit">
+                                <a href="{{ route('admin.edit', $emp->id) }}" class="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50" title="Edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>

@@ -14,4 +14,9 @@ class Employee extends Model
     {
         return $this->hasOne(LoginUser::class, 'nik_emp', 'employee_id');
     }
+
+    public function bank()
+    {
+        return $this->hasOne(EmployeeBank::class);
+    }
 }

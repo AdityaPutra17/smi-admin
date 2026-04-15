@@ -7,6 +7,7 @@ use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\EmployeeImportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,4 +35,5 @@ Route::middleware('auth')->group(function (){
     Route::resource('submenus', SubmenuController::class);
     Route::resource('user', LoginUserController::class);
     Route::resource('access', AccessController::class);
+    Route::post('/import-employees', [EmployeeImportController::class, 'import'])->name('import.employees');
 });

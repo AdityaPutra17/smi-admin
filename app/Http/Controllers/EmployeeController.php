@@ -72,9 +72,11 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee, string $id)
     {
         //
+        $employee = Employee::findOrFail($id);
+        return view('admin.hr.edit', compact('employee'));
     }
 
     /**
@@ -82,7 +84,72 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'emp_id' => 'required|unique:employees,emp_id,' . $id,
+            'nik_emp' => 'required|unique:employees,nik_emp,' . $id,
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string|max:20',
+            'gender' => 'nullable|in:Laki-laki,Perempuan',
+            'birth_date' => 'nullable|date',
+            'birth_place' => 'nullable|string|max:255',
+            'marital_status' => 'nullable|string|max:100',
+            'education' => 'nullable|string|max:100',
+            'ktp_number' => 'nullable|string|max:50',
+            'address' => 'nullable|string',
+            'residence' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'branch' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'division' => 'nullable|string|max:255',
+            'position' => 'nullable|string|max:255',
+            'join_date' => 'nullable|date',
+            'contract_start' => 'nullable|date',
+            'contract_end' => 'nullable|date',
+            'contract_type' => 'nullable|string|max:100',
+            'attendance_type' => 'nullable|string|max:100',
+            'status' => 'required|in:Active,Inactive',
+        ]);
+
+        $employee = \App\Models\Employee::findOrFail($id);
+
+        $employee->update([
+            'emp_id' => $request->emp_id,
+            'nik_emp' => $request->nik_emp,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'birth_date' => $request->birth_date,
+            'birth_place' => $request->birth_place,
+            'marital_status' => $request->marital_status,
+            'education' => $request->education,
+            'ktp_number' => $request->ktp_number,
+            'address' => $request->address,
+            'residence' => $request->residence,
+            'company' => $request->company,
+            'branch' => $request->branch,
+            'location' => $request->location,
+            'division' => $request->division,
+            'position' => $request->position,
+            'join_date' => $request->join_date,
+            'contract_start' => $request->contract_start,
+            'contract_end' => $request->contract_end,
+            'contract_type' => $request->contract_type,
+            'attendance_type' => $request->attendance_type,
+            'status' => $request->status,
+
+            // ✅ audit update
+            'updated_by' => auth()->user()->employee_id ?? null,
+            'updated_date' => now(),
+        ]);
+
+        // ======================
+        // REDIRECT
+        // ======================
+        return redirect()
+            ->route('admin.index')
+            ->with('success', 'Data karyawan berhasil diperbarui');
     }
 
     /**

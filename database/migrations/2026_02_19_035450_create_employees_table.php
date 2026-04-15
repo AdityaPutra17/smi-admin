@@ -13,21 +13,42 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('emp_id');
-            $table->string('nik_emp');
+            $table->string('emp_id')->unique();
+            $table->string('nik_emp')->unique();
             $table->string('name');
-            $table->string('company');
-            $table->string('startcont')->nullable();
-            $table->string('join_date')->nullable();
-            $table->string('division');
-            $table->string('location');
-            $table->string('position');
-            $table->string('no_hp');
-            $table->string('status');
-            $table->string('tgl_resign')->nullable();
-            $table->string('pic_hr')->nullable();
-            $table->string('email');
-            $table->string('user_pic')->nullable();
+            $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('education')->nullable();
+
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+
+            $table->string('ktp_number')->nullable();
+            $table->text('address')->nullable();
+            $table->string('residence')->nullable();
+
+            $table->string('company')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('location')->nullable();
+            $table->string('division')->nullable();
+            $table->string('position')->nullable();
+            
+            $table->date('join_date')->nullable();
+            $table->date('contract_start')->nullable();
+            $table->date('contract_end')->nullable();
+            $table->string('contract_type')->nullable();
+
+            $table->string('attendance_type')->nullable();
+
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
+
+            $table->string('input_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('input_date')->nullable();
+            $table->string('updated_date')->nullable();
+
             $table->timestamps();
         });
     }
